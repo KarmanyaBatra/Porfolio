@@ -69,10 +69,18 @@ export const experience: ExperienceRole[] = [
     location: "Gurugram, India",
     dates: "September 2026 – Present",
     bullets: [
-      // Placeholder — tell me what Cashew is and what the AI analytics work involves and I'll tighten these up.
       "Converted from intern to full-time AI/ML Engineer at Rayonix.",
-      "Building Cashew — details pending.",
-      "Developing AI-powered analytics features — details pending.",
+      "Cashew: built a real-time cashew quality-sorting pipeline that reads a line-scan camera's pixel stream over UDP, stitches rows into individual cashews, and classifies each with XGBoost on 67 engineered colour and shape features, publishing ACCEPT / AVOID decisions over MQTT.",
+      "Reached 90.3% four-class accuracy on a held-out test set and 99.6% on the accept/avoid decision over replayed captures, splitting data by capture file to prevent leakage.",
+      "Ran the pipeline on a Raspberry Pi at roughly 300 cashews per second, with a bounded queue that drops and logs under load instead of stalling the camera input.",
+      "AI analytics: built seven video-analytics pipelines on YOLO with ByteTrack/DeepSORT tracking — crowd counting, loitering, intrusion zones, gate open/close, person-to-equipment proximity, pose-based violence detection, and number-plate recognition.",
+      "Added an appearance-based re-identification layer to loitering detection so a person who leaves and returns keeps their dwell timer, and built plate OCR with per-plate vote aggregation, two-line plate support, and duplicate merging.",
+    ],
+    metrics: [
+      { label: "cashew grade accuracy, 4 classes", value: "90.3%" },
+      { label: "accept / avoid accuracy on replay", value: "99.6%" },
+      { label: "cashews classified per second on a Pi", value: "~300/s" },
+      { label: "video analytics pipelines built", value: "7" },
     ],
   },
   {
