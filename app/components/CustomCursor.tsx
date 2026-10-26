@@ -32,15 +32,15 @@ export default function CustomCursor() {
   return (
     <>
       <motion.div
-        className="cursor-fine-only pointer-events-none fixed left-0 top-0 z-[100] h-1.5 w-1.5 rounded-full bg-lime-400"
+        className="cursor-fine-only pointer-events-none fixed left-0 top-0 z-[100] h-1.5 w-1.5 rounded-full bg-rust"
         style={{ x, y, translateX: "-50%", translateY: "-50%" }}
       />
       <motion.div
-        className="cursor-fine-only pointer-events-none fixed left-0 top-0 z-[100] rounded-full border border-lime-400/60"
+        className="cursor-fine-only pointer-events-none fixed left-0 top-0 z-[100] rounded-full border border-rust/50"
         animate={{
-          width: hovering ? 48 : 28,
-          height: hovering ? 48 : 28,
-          opacity: hovering ? 0.9 : 0.5,
+          width: hovering ? 44 : 26,
+          height: hovering ? 44 : 26,
+          opacity: hovering ? 0.8 : 0.4,
         }}
         transition={{ duration: 0.2, ease: "easeOut" }}
         style={{ x: ringX, y: ringY, translateX: "-50%", translateY: "-50%" }}

@@ -1,7 +1,7 @@
 import Navbar from "@/app/components/Navbar";
 import Hero from "@/app/components/Hero";
-import Terminal from "@/app/components/Terminal";
 import About from "@/app/components/About";
+import Highlights from "@/app/components/Highlights";
 import Experience from "@/app/components/Experience";
 import Skills from "@/app/components/Skills";
 import Achievements from "@/app/components/Achievements";
@@ -14,10 +14,8 @@ export default function Home() {
       <Navbar />
       <main>
         <Hero />
-        <section className="py-16">
-          <Terminal />
-        </section>
         <About />
+        <Highlights />
         <Experience />
         <Skills />
         <Achievements />

@@ -3,74 +3,85 @@
 import { motion } from "framer-motion";
 import { ArrowDown } from "lucide-react";
 import { GithubIcon, LinkedinIcon } from "@/app/components/BrandIcons";
+import HeroShapes from "@/app/components/HeroShapes";
 import Magnetic from "@/app/components/Magnetic";
-import Marquee from "@/app/components/Marquee";
-import Typewriter from "@/app/components/Typewriter";
-import { profile, skills } from "@/app/data/content";
+import RotatingWord, { type Word } from "@/app/components/RotatingWord";
+import { profile } from "@/app/data/content";
 
 const socialIcons: Record<string, typeof GithubIcon> = {
   GitHub: GithubIcon,
   LinkedIn: LinkedinIcon,
 };
 
-const tickerItems = skills.flatMap((g) => g.items).slice(0, 14);
+const builds: Word[] = [
+  { text: "web platforms", className: "text-rust" },
+  { text: "ML models", className: "text-teal" },
+  { text: "vision pipelines", className: "text-plum" },
+  { text: "IoT systems", className: "text-ink underline decoration-saffron decoration-[6px] underline-offset-4" },
+];
 
-const container = {
-  hidden: {},
-  show: { transition: { staggerChildren: 0.1, delayChildren: 0.1 } },
-};
+const [firstName, lastName] = profile.name.split(" ");
 
-const item = {
-  hidden: { opacity: 0, y: 20 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] as const } },
-};
+function Letters({ text, delay, className }: { text: string; delay: number; className?: string }) {
+  return (
+    <span className={`inline-flex overflow-hidden pb-[0.08em] ${className ?? ""}`}>
+      {text.split("").map((ch, i) => (
+        <motion.span
+          key={i}
+          className="inline-block"
+          initial={{ y: "110%" }}
+          animate={{ y: 0 }}
+          transition={{ duration: 0.8, delay: delay + i * 0.04, ease: [0.22, 1, 0.36, 1] }}
+        >
+          {ch}
+        </motion.span>
+      ))}
+    </span>
+  );
+}
+
+const fadeUp = (delay: number) => ({
+  initial: { opacity: 0, y: 16 },
+  animate: { opacity: 1, y: 0 },
+  transition: { duration: 0.7, delay, ease: [0.22, 1, 0.36, 1] as const },
+});
 
 export default function Hero() {
   return (
-    <section id="top" className="relative overflow-hidden">
-      <div className="relative flex min-h-[90vh] items-center">
-        <motion.div
-          variants={container}
-          initial="hidden"
-          animate="show"
-          className="mx-auto w-full max-w-5xl px-6 pt-24"
-        >
-          <motion.p
-            variants={item}
-            className="mb-4 flex items-center gap-2 font-mono text-sm text-lime-400"
-          >
-            <span className="h-1.5 w-1.5 rounded-full bg-lime-400" />
-            {profile.name} — {profile.location}
+    <section id="top" className="relative flex min-h-screen items-center overflow-hidden">
+      <div className="mx-auto grid w-full max-w-6xl items-center gap-10 px-6 pt-24 md:grid-cols-[1.25fr_1fr]">
+        <div>
+          <motion.p {...fadeUp(0.1)} className="mb-6 flex items-center gap-3 text-sm tracking-[0.2em] text-faint uppercase">
+            <span className="h-2 w-2 rounded-full bg-teal" />
+            {profile.location}
           </motion.p>
 
-          <motion.h1
-            variants={item}
-            className="font-display text-5xl font-bold leading-[0.95] tracking-tight text-white sm:text-7xl md:text-8xl"
-          >
-            {profile.name.split(" ")[0]}
+          <h1 className="font-display text-6xl leading-[0.95] tracking-tight text-ink sm:text-7xl lg:text-8xl">
+            <Letters text={firstName} delay={0.2} />
             <br />
-            <span className="text-neutral-600">builds</span>
-          </motion.h1>
+            <Letters text={`${lastName}.`} delay={0.5} className="italic text-rust" />
+          </h1>
 
-          <motion.div
-            variants={item}
-            className="mt-4 min-h-[1.5em] font-mono text-xl text-lime-400 sm:text-2xl"
+          <motion.p {...fadeUp(1)} className="font-display mt-6 text-2xl text-muted sm:text-3xl">
+            Engineer who ships <RotatingWord words={builds} />
+          </motion.p>
+
+          <motion.p
+            {...fadeUp(1.15)}
+            className="mt-6 max-w-xl border-l-2 border-saffron pl-5 text-lg leading-relaxed text-muted"
           >
-            <Typewriter words={profile.roles} />
-          </motion.div>
-
-          <motion.p variants={item} className="mt-6 max-w-xl text-lg text-neutral-400">
             {profile.tagline}
           </motion.p>
 
-          <motion.div variants={item} className="mt-10 flex flex-wrap items-center gap-4">
+          <motion.div {...fadeUp(1.3)} className="mt-10 flex flex-wrap items-center gap-4">
             <Magnetic>
               <a
                 href="#experience"
                 data-cursor-hover
-                className="inline-flex rounded-md bg-lime-400 px-6 py-3 text-sm font-semibold text-black"
+                className="group relative inline-flex overflow-hidden rounded-md bg-ink px-6 py-3 text-sm font-medium text-paper"
               >
-                See my work
+                <span className="absolute inset-0 origin-left scale-x-0 bg-rust transition-transform duration-500 ease-out group-hover:scale-x-100" />
+                <span className="relative">See my work →</span>
               </a>
             </Magnetic>
             <Magnetic>
@@ -79,9 +90,10 @@ export default function Hero() {
                 target="_blank"
                 rel="noreferrer"
                 data-cursor-hover
-                className="inline-flex rounded-md border border-white/15 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-white/10"
+                className="group relative inline-flex overflow-hidden rounded-md border border-ink/20 px-6 py-3 text-sm font-medium text-ink"
               >
-                Resume
+                <span className="absolute inset-0 origin-bottom scale-y-0 bg-saffron transition-transform duration-500 ease-out group-hover:scale-y-100" />
+                <span className="relative">Resume</span>
               </a>
             </Magnetic>
 
@@ -96,7 +108,7 @@ export default function Hero() {
                       target="_blank"
                       rel="noreferrer"
                       data-cursor-hover
-                      className="flex rounded-full border border-white/10 p-2.5 text-neutral-300 transition-colors hover:border-white/30 hover:text-white"
+                      className="flex rounded-full border border-ink/15 p-2.5 text-muted transition-colors hover:border-teal hover:bg-teal hover:text-paper"
                     >
                       {Icon ? <Icon width={18} height={18} /> : s.label}
                     </a>
@@ -105,21 +117,25 @@ export default function Hero() {
               })}
             </div>
           </motion.div>
-        </motion.div>
+        </div>
 
-        <motion.a
-          href="#about"
-          data-cursor-hover
-          animate={{ y: [0, 8, 0] }}
-          transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 text-neutral-500 hover:text-white transition-colors"
-          aria-label="Scroll to about section"
-        >
-          <ArrowDown size={20} />
-        </motion.a>
+        <div className="hidden md:block">
+          <HeroShapes />
+        </div>
       </div>
 
-      <Marquee items={tickerItems} />
+      <motion.a
+        href="#about"
+        data-cursor-hover
+        aria-label="Scroll to about section"
+        className="absolute bottom-8 left-1/2 hidden -translate-x-1/2 flex-col lg:flex items-center gap-2 text-xs tracking-[0.2em] text-faint uppercase"
+        {...fadeUp(1.6)}
+      >
+        Scroll
+        <motion.span animate={{ y: [0, 6, 0] }} transition={{ duration: 1.6, repeat: Infinity }}>
+          <ArrowDown size={16} />
+        </motion.span>
+      </motion.a>
     </section>
   );
 }

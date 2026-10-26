@@ -3,11 +3,6 @@
 export const profile = {
   name: "Karmanya Batra",
   role: "Full Stack Developer & AI/ML Engineer",
-  roles: [
-    "Full Stack Developer",
-    "AI/ML Engineer",
-    "Computer Vision Engineer",
-  ],
   tagline:
     "I build production-ready web, IoT, and computer-vision systems — from Indian Army surveillance pipelines to full-stack platforms — and ship measurable improvements, not just demos.",
   location: "New Delhi, India",
@@ -22,7 +17,7 @@ export const profile = {
 export const about = {
   bio: [
     "Full Stack Developer and AI/ML Engineer with hands-on experience across web development, IoT, and computer vision — including real-world defense-focused projects for the Indian Army. I work across React.js, Next.js, Node.js, Express.js, MongoDB, PostgreSQL, and Python, building production-ready applications spanning smart automation, computer vision, and chatbot-integrated systems.",
-    "Across my full-stack and ML projects I've consistently delivered 20%+ measurable improvements in speed, reliability, and user experience — I care about the number moving, not just the feature shipping.",
+    "Across my full-stack and ML projects I've consistently delivered 20%+ measurable improvements in speed, reliability, and user experience.",
   ],
 };
 
@@ -132,6 +127,13 @@ export const achievements = [
     dates: "Dec 2022",
     description: "Collected 100+ feedback responses to inform future club activities.",
   },
+];
+
+export const highlights = [
+  { value: "+12%", label: "detection accuracy on an Indian Army surveillance pipeline" },
+  { value: "-30%", label: "edge inference latency on Raspberry Pi 4" },
+  { value: "15+", label: "IoT devices controlled through platforms I built" },
+  { value: "19,000+", label: "viewers on my BBC World Service podcast episode" },
 ];
 
 export const nav = [

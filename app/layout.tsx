@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Space_Grotesk } from "next/font/google";
+import { Geist, Geist_Mono, Fraunces } from "next/font/google";
 import CustomCursor from "@/app/components/CustomCursor";
 import CommandPalette from "@/app/components/CommandPalette";
+import MotionProvider from "@/app/components/MotionProvider";
+import ScrollProgress from "@/app/components/ScrollProgress";
 import { profile } from "@/app/data/content";
 import "./globals.css";
 
@@ -15,10 +17,12 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const spaceGrotesk = Space_Grotesk({
+const fraunces = Fraunces({
   variable: "--font-display",
   subsets: ["latin"],
-  weight: ["500", "700"],
+  weight: "variable",
+  style: ["normal", "italic"],
+  axes: ["opsz", "SOFT", "WONK"],
 });
 
 export const metadata: Metadata = {
@@ -30,12 +34,15 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} ${spaceGrotesk.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} ${fraunces.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-black text-white">
-        <CustomCursor />
-        <CommandPalette />
-        {children}
+      <body className="min-h-full flex flex-col">
+        <MotionProvider>
+          <ScrollProgress />
+          <CustomCursor />
+          <CommandPalette />
+          {children}
+        </MotionProvider>
       </body>
     </html>
   );

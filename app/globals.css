@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 :root {
-  --background: #0a0a0a;
-  --foreground: #ededed;
+  --background: #f6f1e7;
+  --foreground: #1c1815;
 }
 
 @theme inline {
@@ -11,6 +11,18 @@
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
   --font-display: var(--font-display);
+}
+
+@theme {
+  --color-paper: #f6f1e7;
+  --color-ink: #1c1815;
+  --color-muted: #5f5247;
+  --color-faint: #8a7a68;
+  --color-rust: #c8441c;
+  --color-teal: #0d7a6f;
+  --color-saffron: #e3a21a;
+  --color-plum: #4b2e83;
+  --color-blush: #f2c4b3;
 }
 
 html {
@@ -24,34 +36,21 @@ body {
   position: relative;
 }
 
-/* Film-grain texture over the flat background — breaks up the "flat AI gradient" look. */
+/* Paper-grain texture — fits the editorial/print feel instead of hiding a flat gradient. */
 body::before {
   content: "";
   position: fixed;
   inset: 0;
   z-index: 1;
   pointer-events: none;
-  opacity: 0.045;
-  mix-blend-mode: overlay;
+  opacity: 0.035;
+  mix-blend-mode: multiply;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
 ::selection {
-  background: #a3e635;
-  color: #050505;
-}
-
-@keyframes marquee {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-50%);
-  }
-}
-
-.animate-marquee {
-  animation: marquee 22s linear infinite;
+  background: #c2410c;
+  color: #f6f1e7;
 }
 
 [cmdk-group-heading] {
@@ -60,7 +59,7 @@ body::before {
   font-weight: 500;
   letter-spacing: 0.05em;
   text-transform: uppercase;
-  color: #737373;
+  color: #8a8075;
 }
 
 * {
